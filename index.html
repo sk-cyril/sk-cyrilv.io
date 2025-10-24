@@ -1,333 +1,641 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Your Name — Portfolio</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Cyril V. — Portfolio</title>
 
-  <!-- Google font (optional) -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
 
-  <style>
-    :root{
-      --bg:#0b0f13;
-      --card:#0f1720;
-      --muted:#9aa6b2;
-      --accent:#6ee7b7; /* edit accent color */
-      --glass: rgba(255,255,255,0.03);
-      --radius:14px;
-      --maxwidth:1100px;
-      --transition: 350ms cubic-bezier(.2,.9,.3,1);
-      color-scheme: dark;
-    }
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0;
-      font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-      background:linear-gradient(180deg,#071017 0%, #0b0f13 60%);
-      color:#e6eef3;
-      -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
-      line-height:1.45;
-      padding:0 20px;
-    }
+  <style>
+    :root{
+      --bg:#0b0f13;
+      --card:#0f1720;
+      --muted:#9aa6b2;
+      --text-main: #e6eef3;
+      --text-strong: #ffffff;
+      --accent:#6ee7b7; /* edit accent color */
+      --accent-text: #041018;
+      --glass: rgba(255,255,255,0.03);
+      --border: rgba(255,255,255,0.03);
+      --shadow: rgba(2,6,10,0.6);
+      --shadow-accent: rgba(110, 231, 183, 0.4);
+      --radius:14px;
+      --maxwidth:1100px;
+      --transition: 350ms cubic-bezier(.2,.9,.3,1);
+      color-scheme: dark;
+    }
 
-    /* layout */
-    .container{max-width:var(--maxwidth); margin:0 auto; padding:40px 20px;}
-    header{
-      position:sticky; top:16px; z-index:40;
-      display:flex; align-items:center; justify-content:space-between;
-      gap:16px;
-      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-      padding:10px 16px; border-radius:12px; backdrop-filter: blur(6px);
-      box-shadow: 0 6px 20px rgba(2,6,10,0.6);
+    /* --- NEW: Light Theme Variables --- */
+    body.light-theme {
+      --bg:#f0f4f8;
+      --card:#ffffff;
+      --muted:#4a5568;
+      --text-main: #1a202c;
+      --text-strong: #000000;
+      --accent:#0d9488; /* A darker teal for better contrast on light bg */
+      --accent-text: #ffffff;
+      --glass: rgba(0,0,0,0.02);
+      --border: rgba(0,0,0,0.05);
+      --shadow: rgba(100,110,120,0.2);
+      --shadow-accent: rgba(13, 148, 136, 0.4);
+      color-scheme: light;
     }
-    .brand{display:flex; align-items:center; gap:12px;}
-    .logo{
-      width:44px; height:44px; border-radius:10px; display:grid; place-items:center;
-      background:linear-gradient(135deg,var(--accent),#6b9cff); font-weight:800; color:#041018;
-      box-shadow:0 6px 20px rgba(0,0,0,0.6);
-    }
-    nav{display:flex; gap:12px; align-items:center;}
-    nav a{color:var(--muted); text-decoration:none; padding:8px 10px; border-radius:8px; font-weight:600; font-size:14px}
-    nav a.active{background:linear-gradient(90deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01)); color:var(--accent)}
-    .cta{padding:8px 12px; border-radius:10px; background:linear-gradient(90deg,var(--accent),#7bd1ff); color:#041018; font-weight:700; text-decoration:none}
+    
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background:linear-gradient(180deg,#071017 0%, #0b0f13 60%);
+      color:var(--text-main);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.45;
+      padding:0 20px;
+      transition: background 300ms ease-out, color 300ms ease-out; /* Theme transition */
+    }
 
-    /* hero */
-    .hero{
-      min-height:78vh; display:grid; align-items:center; padding:48px; gap:18px;
-      grid-template-columns: 1fr 380px;
-      margin-top:18px;
-    }
-    .hero-left{max-width:680px}
-    .eyebrow{color:var(--accent); font-weight:700; letter-spacing:0.08em; margin-bottom:8px}
-    h1{font-size:clamp(30px,5.4vw,52px); margin:0 0 12px;}
-    .lead{color:var(--muted); font-size:18px; margin-bottom:18px}
-    .hero-actions{display:flex; gap:10px; flex-wrap:wrap}
-    .card{
-      background:var(--card); padding:18px; border-radius:var(--radius); box-shadow:0 10px 30px rgba(2,6,10,0.6);
-      border:1px solid rgba(255,255,255,0.03);
+    /* --- NEW: Light Theme Body --- */
+    body.light-theme {
+      background:linear-gradient(180deg,#fdfdfd 0%, #f0f4f8 60%);
     }
 
-    /* hero right preview (profile / quick details) */
-    .profile{
-      padding:20px; border-radius:12px; display:flex; gap:12px; align-items:center; background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
+    /* layout */
+    .container{max-width:var(--maxwidth); margin:0 auto; padding:40px 20px;}
+    header{
+      position:sticky; top:16px; z-index:40;
+      display:flex; align-items:center; justify-content:space-between;
+      gap:16px;
+      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      padding:10px 16px; border-radius:12px; backdrop-filter: blur(6px);
+      box-shadow: 0 6px 20px var(--shadow);
+      transition: background 300ms ease-out, box-shadow 300ms ease-out;
+    }
+    /* --- NEW: Light Theme Header --- */
+    body.light-theme header {
+      background:linear-gradient(180deg, rgba(255,255,255,0.7), rgba(255,255,255,0.4));
     }
-    .avatar{width:86px; height:86px; border-radius:14px; background:linear-gradient(135deg,#3b82f6,#9b8cff); display:grid; place-items:center; font-weight:800; font-size:28px; color:#fff}
-    .meta{font-size:14px; color:var(--muted)}
-    .meta strong{color:#fff; display:block; font-size:16px}
 
-    /* sections */
-    section{padding:90px 0; opacity:0; transform:translateY(18px); transition:var(--transition); will-change:transform, opacity}
-    section.visible{opacity:1; transform:none}
-    .section-inner{max-width:var(--maxwidth); margin:0 auto; padding:0 20px}
-    .split{display:grid; grid-template-columns: 1fr 420px; gap:28px; align-items:start}
-    .panel{background:var(--glass); padding:18px; border-radius:12px; border:1px solid rgba(255,255,255,0.02)}
-
-    /* small */
-    .muted{color:var(--muted)}
-    ul.meta-list{list-style:none; padding:0; margin:0}
-    ul.meta-list li{padding:8px 0; border-bottom:1px dashed rgba(255,255,255,0.02)}
-    .projects{display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:18px}
-    .project{padding:14px; border-radius:12px; background:linear-gradient(180deg, rgba(255,255,255,0.01), transparent); border:1px solid rgba(255,255,255,0.02)}
-    footer{padding:40px 0; color:var(--muted); text-align:center}
-
-    /* responsive */
-    @media (max-width:980px){
-      .hero{grid-template-columns:1fr; padding:30px}
-      .split{grid-template-columns:1fr}
+    .brand{display:flex; align-items:center; gap:12px;}
+    .logo{
+      width:44px; height:44px; border-radius:10px; display:grid; place-items:center;
+      background:linear-gradient(135deg,var(--accent),#6b9cff); font-weight:800; color:var(--accent-text);
+      box-shadow:0 6px 20px rgba(0,0,0,0.6);
+      transition: var(--transition);
+    }
+    /* --- NEW: Light Theme Logo/CTA Text --- */
+    body.light-theme .logo {
+      color: #ffffff; 
+      box-shadow: 0 6px 20px var(--shadow-accent);
     }
-    /* subtle parallax background effect */
-    .parallax{
-      position:absolute; inset:0; pointer-events:none; z-index:-1; opacity:0.12;
-      background-image: radial-gradient(circle at 10% 10%, #16455e 0%, transparent 12%),
-                        radial-gradient(circle at 90% 80%, #07344a 0%, transparent 12%);
-      transform:translateZ(0);
-      mix-blend-mode:screen;
+    
+    nav{display:flex; gap:12px; align-items:center;}
+    nav a{
+      color:var(--muted); text-decoration:none; padding:8px 10px; border-radius:8px; 
+      font-weight:600; font-size:14px;
+      /* --- NEW: Animation --- */
+      transition: var(--transition);
+      will-change: transform, color;
     }
-    /* small helpers */
-    .small{font-size:13px; color:var(--muted)}
-    a.no-decor{text-decoration:none; color:inherit}
-  </style>
+    /* --- NEW: Hover/Active Animation --- */
+    nav a:hover {
+      color: var(--accent);
+      transform: translateY(-2px);
+    }
+    nav a:active {
+      transform: scale(0.95);
+      opacity: 0.8;
+    }
+    nav a.active{
+      background:linear-gradient(90deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01)); 
+      color:var(--accent);
+    }
+    body.light-theme nav a.active {
+      background: var(--glass);
+    }
+
+    .cta{
+      padding:8px 12px; border-radius:10px; 
+      background:linear-gradient(90deg,var(--accent),#7bd1ff); 
+      color:var(--accent-text); 
+      font-weight:700; text-decoration:none;
+      /* --- NEW: Animation --- */
+      transition: var(--transition);
+      will-change: transform, box-shadow;
+    }
+    body.light-theme .cta {
+      color: #ffffff;
+    }
+    /* --- NEW: Hover/Active Animation --- */
+    .cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px var(--shadow-accent);
+    }
+    .cta:active {
+      transform: scale(0.96);
+    }
+
+    /* --- NEW: Toggles Container --- */
+    .header-toggles {
+      display: flex;
+      gap: 8px;
+      margin-left: auto; /* Pushes toggles to the left of CTA */
+    }
+    .icon-btn {
+      display: grid;
+      place-items: center;
+      background: var(--glass);
+      border: 1px solid var(--border);
+      color: var(--muted);
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 18px;
+      transition: var(--transition);
+    }
+    .icon-btn:hover {
+      background: var(--accent);
+      color: var(--accent-text);
+      border-color: var(--accent);
+    }
+    body.light-theme .icon-btn:hover {
+      color: #ffffff;
+    }
+
+    /* hero */
+    .hero{
+      min-height:78vh; display:grid; align-items:center; padding:48px; gap:18px;
+      grid-template-columns: 1fr 380px;
+      margin-top:18px;
+    }
+    .hero-left{max-width:680px}
+    .eyebrow{color:var(--accent); font-weight:700; letter-spacing:0.08em; margin-bottom:8px}
+    h1{font-size:clamp(30px,5.4vw,52px); margin:0 0 12px; color: var(--text-strong);}
+    .lead{color:var(--muted); font-size:18px; margin-bottom:18px}
+    .hero-actions{display:flex; gap:10px; flex-wrap:wrap}
+    .card{
+      background:var(--card); padding:18px; border-radius:var(--radius); 
+      box-shadow:0 10px 30px var(--shadow);
+      border:1px solid var(--border);
+      transition: background 300ms ease-out, border 300ms ease-out, box-shadow 300ms ease-out;
+    }
+
+    /* hero right preview (profile / quick details) */
+    .profile{
+      padding:20px; border-radius:12px; display:flex; gap:12px; align-items:center; background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
+    }
+    .avatar{width:86px; height:86px; border-radius:14px; background:linear-gradient(135deg,#3b82f6,#9b8cff); display:grid; place-items:center; font-weight:800; font-size:28px; color:#fff}
+    .meta{font-size:14px; color:var(--muted)}
+    .meta strong{color:var(--text-strong); display:block; font-size:16px}
+
+    /* sections */
+    section{padding:90px 0; opacity:0; transform:translateY(18px); transition:var(--transition); will-change:transform, opacity}
+    section.visible{opacity:1; transform:none}
+    .section-inner{max-width:var(--maxwidth); margin:0 auto; padding:0 20px}
+    .split{display:grid; grid-template-columns: 1fr 420px; gap:28px; align-items:start}
+    .panel{background:var(--glass); padding:18px; border-radius:12px; border:1px solid var(--border)}
+
+    /* small */
+    .muted{color:var(--muted)}
+    ul.meta-list{list-style:none; padding:0; margin:0}
+    ul.meta-list li{padding:8px 0; border-bottom:1px dashed var(--border)}
+    .projects{display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:18px}
+    .project{padding:14px; border-radius:12px; background:linear-gradient(180deg, rgba(255,255,255,0.01), transparent); border:1px solid var(--border)}
+    footer{padding:40px 0; color:var(--muted); text-align:center}
+
+    /* --- NEW: Form inputs --- */
+    #contactForm input,
+    #contactForm textarea {
+      padding:12px; border-radius:10px; border:1px solid var(--border); 
+      background:transparent; color:inherit;
+      transition: background 300ms ease-out, border 300ms ease-out;
+    }
+    body.light-theme #contactForm input,
+    body.light-theme #contactForm textarea {
+      background: #fdfdfd;
+      border-color: rgba(0,0,0,0.08);
+    }
+
+    /* responsive */
+    @media (max-width:980px){
+      header{gap:8px;}
+      .hero{grid-template-columns:1fr; padding:30px}
+      .split{grid-template-columns:1fr}
+      /* Hide nav text on mobile, just show icons */
+      nav { display: none; } /* Hides full nav */
+      .header-toggles { margin-left: 0; } /* Resets margin */
+      /* A more complex solution would be needed to show icons AND nav on mobile */
+    }
+    /* subtle parallax background effect */
+    .parallax{
+      position:absolute; inset:0; pointer-events:none; z-index:-1; opacity:0.12;
+      background-image: radial-gradient(circle at 10% 10%, #16455e 0%, transparent 12%),
+                        radial-gradient(circle at 90% 80%, #07344a 0%, transparent 12%);
+      transform:translateZ(0);
+      mix-blend-mode:screen;
+    }
+    body.light-theme .parallax {
+      opacity: 0.08;
+      mix-blend-mode: multiply;
+      background-image: radial-gradient(circle at 10% 10%, #a7c5d4 0%, transparent 12%),
+                        radial-gradient(circle at 90% 80%, #b4cde2 0%, transparent 12%);
+    }
+
+    /* small helpers */
+    .small{font-size:13px; color:var(--muted)}
+    a.no-decor{text-decoration:none; color:inherit}
+    
+    /* --- NEW: Music Player --- */
+    .music-player {
+      position:fixed; 
+      top:85px; 
+      /* Position it relative to the header toggles */
+      right: 20px; 
+      z-index:100;
+      width:300px; 
+      padding:16px;
+      backdrop-filter: blur(10px);
+      /* Hide by default */
+      opacity:0; 
+      transform:translateY(-10px) scale(0.95);
+      visibility:hidden; 
+      transition: var(--transition);
+      transform-origin: top right;
+    }
+    .music-player.visible {
+      opacity:1; 
+      transform:none; 
+      visibility:visible;
+    }
+    .music-player h4{margin:0 0 8px;}
+    #song-title { min-height: 1.2em; }
+    #playlist {
+      list-style:none; padding:0; margin:12px 0; 
+      max-height:150px; overflow-y:auto;
+      font-size:14px;
+    }
+    #playlist li {
+      padding:8px 10px; border-radius:6px; cursor:pointer;
+      transition:150ms ease-out;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    #playlist li:hover {background:var(--glass);}
+    #playlist li.playing {color:var(--accent); font-weight:600;}
+    
+    .music-controls {display:flex; gap:10px; justify-content:center; margin-top:10px;}
+    .music-controls button {
+      background:transparent; border:none; font-size:20px;
+      color:var(--muted); cursor:pointer; transition:150ms ease-out;
+      padding: 4px;
+    }
+    .music-controls button:hover {color:var(--accent);}
+    /* --- End Music Player --- */
+
+  </style>
 </head>
 <body>
-  <div class="parallax" id="parallax"></div>
+  <div class="parallax" id="parallax"></div>
 
-  <div class="container">
-    <header>
-      <div class="brand">
-        <div class="logo">SK</div>
-        <div>
-          <div style="font-weight:700">Your Name</div>
-          <div class="small muted">Frontend · Designer · Developer</div>
-        </div>
+  <div class="container">
+    <header>
+      <div class="brand">
+        <div class="logo">SK</div>
+        <div>
+          <div style="font-weight:700">Your Name</div>
+          <div class="small muted">Frontend · Designer · Developer</div>
+        </div>
+      </div>
+
+      <nav id="nav">
+        <a href="#home" class="nav-link active">Home</a>
+        <a href="#about" class="nav-link">About</a>
+        <a href="#details" class="nav-link">Details</a>
+        <a href="#more" class="nav-link">More</a>
+        <a href="#contact" class="nav-link">Contact</a>
+      </nav>
+
+      <div class="header-toggles">
+        <button id="theme-toggle" class="icon-btn" aria-label="Toggle theme">🌙</button>
+        <button id="music-toggle" class="icon-btn" aria-label="Toggle music player">🎵</button>
       </div>
 
-      <nav id="nav">
-        <a href="#home" class="nav-link active">Home</a>
-        <a href="#about" class="nav-link">About</a>
-        <a href="#details" class="nav-link">Details</a>
-        <a href="#more" class="nav-link">More</a>
-        <a href="#contact" class="nav-link">Contact</a>
-      </nav>
+      <a class="cta" href="#contact">Get in touch</a>
+    </header>
 
-      <a class="cta" href="#contact">Get in touch</a>
-    </header>
+        <main id="home" class="hero" role="main">
+            <div class="hero-left">
+        <div class="eyebrow">Hi — I'm</div>
+        <h1>Cyril Vasquez</h1>
+        <p class="lead">
+          I'm a web developer focused on crafting clean, accessible interfaces with delightful micro-interactions.
+        </p>
+        <div class="hero-actions" style="margin-top:10px">
+          <a class="card no-decor" href="#about">Learn about me</a>
+          <a class="card no-decor" href="#projects">See projects →</a>
+        </div>
+      </div>
+      <aside class="card profile" aria-hidden="true">
+        <div class="avatar">SK</div>
+        <div>
+          <div class="meta"><strong>Web Developer</strong>
+            <div class="small muted">Location: Your City · Available for freelance</div>
+            <div style="margin-top:8px">
+              <a class="small" href="#" style="color:var(--accent); text-decoration:none;">Resume</a> ·
+              <a class="small" href="#" style="color:var(--accent); text-decoration:none;">LinkedIn</a>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </main>
 
-    <!-- HERO / Landing -->
-    <main id="home" class="hero" role="main">
-      <div class="hero-left">
-        <div class="eyebrow">Hi — I'm</div>
+            <section id="about" class="card">
+      <div class="section-inner">
+        <h2>About me</h2>
+        <div class="split" style="margin-top:14px">
+          <div>
+            <p class="muted">
+              I'm a developer who enjoys turning ideas into interactive websites and small apps. I like clean UI, readable code, and constant learning.
+            </p>
+            <p style="margin-top:12px">
+              <strong>Skills:</strong> HTML, CSS, JavaScript, React (or your stack), Responsive design, Accessibility.
+            </p>
+          </div>
+          <aside class="panel">
+            <h4 class="small">Quick details</h4>
+            <ul class="meta-list" style="margin-top:12px">
+              <li><strong>Location</strong><div class="muted">San Juan City, Metro Manila</div></li>
+              <li><strong>Email</strong><div class="muted">vasquezvincyrile@gmail.com</div></li>
+              <li><strong>Availability</strong><div class="muted">Open to work / Freelance</div></li>
+            </ul>
+          </aside>
+        </div>
+      </div>
+    </section>
 
-        <!-- EDIT: change the name and subtitle below -->
-        <h1><!-- EDIT NAME -->Cyril Vasquez</h1>
-        <p class="lead"><!-- EDIT: short one-line description / elevator pitch -->
-          I'm a web developer focused on crafting clean, accessible interfaces with delightful micro-interactions.
-        </p>
+        <section id="details">
+      <div class="section-inner">
+        <h2>Details</h2>
+        <p class="muted">
+          Detail 1: A paragraph about something deeper you want visitors to know (technical approach, a big project, your process).
+        </p>
+        <div style="height:18px"></div>
+        <div class="projects" id="projects">
+          <div class="project">
+            <h3 style="margin:0 0 8px">Project One</h3>
+            <p class="muted small" style="margin:0 0 8px">Short description — problem solved, tools used.</p>
+            <a class="small" href="#">View project →</a>
+          </div>
+          <div class="project">
+            <h3 style="margin:0 0 8px">Project Two</h3>
+            <p class="muted small" style="margin:0 0 8px">Short description — problem solved, tools used.</p>
+            <a class="small" href="#">View project →</a>
+          </div>
+          <div class="project">
+            <h3 style="margin:0 0 8px">Project Three</h3>
+            <p class="muted small" style="margin:0 0 8px">Short description — problem solved, tools used.</p>
+            <a class="small" href="#">View project →</a>
+          </div>
+        </div>
+      </div>
+    </section>
 
-        <div class="hero-actions" style="margin-top:10px">
-          <a class="card no-decor" href="#about">Learn about me</a>
-          <a class="card no-decor" href="#projects">See projects →</a>
-        </div>
-      </div>
+        <section id="more" class="card">
+      <div class="section-inner">
+        <h2>More descriptions</h2>
+        <p class="muted">
+          Write about your approach, things you are learning now, volunteer work, languages, or hobbies.
+        </p>
+      </div>
+    </section>
 
-      <aside class="card profile" aria-hidden="true">
-        <div class="avatar">SK</div>
-        <div>
-          <div class="meta"><strong><!-- EDIT: short tagline --></strong>
-            <!-- fill this with small details -->
-            <div class="small muted">Location: Your City · Available for freelance</div>
-            <div style="margin-top:8px">
-              <a class="small" href="#" style="color:var(--accent); text-decoration:none;">Resume</a> ·
-              <a class="small" href="#" style="color:var(--accent); text-decoration:none;">LinkedIn</a>
-            </div>
-          </div>
-        </div>
-      </aside>
-    </main>
+        <section id="contact">
+      <div class="section-inner card" style="text-align:left">
+        <h2>Contact</h2>
+        <p class="muted">Want to work together or ask something? Send a quick message.</p>
 
-    <!-- ABOUT -->
-    <section id="about" class="card">
-      <div class="section-inner">
-        <h2>About me</h2>
-        <div class="split" style="margin-top:14px">
-          <div>
-            <p class="muted">
-              <!-- EDIT: Put a longer paragraph describing your background, interests, skills, what you're learning etc. -->
-              I'm a developer who enjoys turning ideas into interactive websites and small apps. I like clean UI, readable code, and constant learning.
-            </p>
+        <form id="contactForm" style="margin-top:14px; display:grid; gap:10px; max-width:520px">
+          <input name="name" placeholder="Your full name" />
+          <input name="email" type="email" placeholder="you@example.com" />
+          <textarea name="message" placeholder="Message..." rows="5"></textarea>
+          <div style="display:flex; gap:8px;">
+            <button type="submit" style="padding:10px 14px; border-radius:10px; border:none; background:linear-gradient(90deg,var(--accent),#7bd1ff); color:var(--accent-text); font-weight:700">Send message</button>
+            <div class="small muted" style="align-self:center">Or email: <a href="mailto:you@example.com" class="no-decor" style="color:var(--accent)">you@example.com</a></div>
+          </div>
+          <div id="formMsg" class="small muted" style="display:none"></div>
+        </form>
+      </div>
+    </section>
 
-            <p style="margin-top:12px">
-              <!-- Add more paragraphs or lists about your strengths, tools you use, languages, or education -->
-              <strong>Skills:</strong> HTML, CSS, JavaScript, React (or your stack), Responsive design, Accessibility.
-            </p>
-          </div>
+    <footer>
+      <div class="small muted">© <span id="year"></span> Your Name — Built with ❤️</div>
+    </footer>
+  </div>
 
-          <aside class="panel">
-            <h4 class="small">Quick details</h4>
-            <ul class="meta-list" style="margin-top:12px">
-              <li><strong>Location</strong><div class="muted">Your City, Country</div></li>
-              <li><strong>Email</strong><div class="muted">you@example.com</div></li>
-              <li><strong>Availability</strong><div class="muted">Open to work / Freelance</div></li>
-            </ul>
-          </aside>
-        </div>
-      </div>
-    </section>
+  <div class="music-player card" id="musicPlayer">
+    <h4>My Playlist</h4>
+    <div id="song-title" class="small muted">Select a song</div>
+    
+    <audio id="audio-player"></audio>
 
-    <!-- DETAILS -->
-    <section id="details">
-      <div class="section-inner">
-        <h2>Details</h2>
-        <p class="muted"><!-- EDIT: add more detailed descriptions — career, education, interesting projects or stories -->
-          Detail 1: A paragraph about something deeper you want visitors to know (technical approach, a big project, your process).
-        </p>
+    <ul id="playlist">
+      <li data-src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3">Sample Song 1 - Artist A</li>
+      <li data-src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3">Sample Song 2 - Artist B</li>
+      <li data-src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3">Sample Song 3 - Artist C</li>
+    </ul>
 
-        <div style="height:18px"></div>
-
-        <div class="projects" id="projects">
-          <!-- Repeat project blocks for each project; edit title & description -->
-          <div class="project">
-            <h3 style="margin:0 0 8px">Project One</h3>
-            <p class="muted small" style="margin:0 0 8px">Short description — problem solved, tools used.</p>
-            <a class="small" href="#">View project →</a>
-          </div>
-
-          <div class="project">
-            <h3 style="margin:0 0 8px">Project Two</h3>
-            <p class="muted small" style="margin:0 0 8px">Short description — problem solved, tools used.</p>
-            <a class="small" href="#">View project →</a>
-          </div>
-
-          <div class="project">
-            <h3 style="margin:0 0 8px">Project Three</h3>
-            <p class="muted small" style="margin:0 0 8px">Short description — problem solved, tools used.</p>
-            <a class="small" href="#">View project →</a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- MORE -->
-    <section id="more" class="card">
-      <div class="section-inner">
-        <h2>More descriptions</h2>
-        <p class="muted">
-          <!-- EDIT: Add as many paragraphs or subsections as you want (case studies, processes, blog links etc.) -->
-          Write about your approach, things you are learning now, volunteer work, languages, or hobbies.
-        </p>
-      </div>
-    </section>
-
-    <!-- CONTACT -->
-    <section id="contact">
-      <div class="section-inner card" style="text-align:left">
-        <h2>Contact</h2>
-        <p class="muted">Want to work together or ask something? Send a quick message.</p>
-
-        <!-- Simple contact form (POST requires backend or form service) -->
-        <form id="contactForm" style="margin-top:14px; display:grid; gap:10px; max-width:520px">
-          <input name="name" placeholder="Your full name" style="padding:12px; border-radius:10px; border:1px solid rgba(255,255,255,0.03); background:transparent; color:inherit" />
-          <input name="email" type="email" placeholder="you@example.com" style="padding:12px; border-radius:10px; border:1px solid rgba(255,255,255,0.03); background:transparent; color:inherit" />
-          <textarea name="message" placeholder="Message..." rows="5" style="padding:12px; border-radius:10px; border:1px solid rgba(255,255,255,0.03); background:transparent; color:inherit"></textarea>
-          <div style="display:flex; gap:8px;">
-            <button type="submit" style="padding:10px 14px; border-radius:10px; border:none; background:linear-gradient(90deg,var(--accent),#7bd1ff); color:#041018; font-weight:700">Send message</button>
-            <div class="small muted" style="align-self:center">Or email: <a href="mailto:you@example.com" class="no-decor" style="color:var(--accent)">you@example.com</a></div>
-          </div>
-          <div id="formMsg" class="small muted" style="display:none"></div>
-        </form>
-
-      </div>
-    </section>
-
-    <footer>
-      <div class="small muted">© <span id="year"></span> Your Name — Built with ❤️</div>
-    </footer>
+    <div class="music-controls">
+      <button id="prev-btn" aria-label="Previous song">⏮</button>
+      <button id="play-pause-btn" aria-label="Play or pause">▶️</button>
+      <button id="next-btn" aria-label="Next song">⏭</button>
+    </div>
   </div>
 
-  <script>
-    // ========== Small helpers to make the UI feel alive ==========
-    document.getElementById('year').textContent = new Date().getFullYear();
+  <script>
+    // ========== Small helpers to make the UI feel alive ==========
+    document.getElementById('year').textContent = new Date().getFullYear();
 
-    // Sticky nav link highlighting + smooth scroll
-    const navLinks = document.querySelectorAll('.nav-link');
-    navLinks.forEach(a => {
-      a.addEventListener('click', e => {
-        e.preventDefault();
-        document.querySelector(a.getAttribute('href')).scrollIntoView({behavior:'smooth', block:'start'});
+    // --- NEW: Theme Toggler ---
+    const themeToggle = document.getElementById('theme-toggle');
+    const body = document.body;
+
+    // Check for saved theme in localStorage
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'light') {
+      body.classList.add('light-theme');
+      themeToggle.textContent = '☀️';
+    } else {
+      themeToggle.textContent = '🌙'; // Default is dark
+    }
+
+    themeToggle.addEventListener('click', () => {
+      body.classList.toggle('light-theme');
+      if (body.classList.contains('light-theme')) {
+        themeToggle.textContent = '☀️';
+        localStorage.setItem('theme', 'light');
+      } else {
+        themeToggle.textContent = '🌙';
+        localStorage.setItem('theme', 'dark');
+      }
+    });
+    // --- End Theme Toggler ---
+
+
+    // Sticky nav link highlighting + smooth scroll
+    const navLinks = document.querySelectorAll('.nav-link');
+    navLinks.forEach(a => {
+      a.addEventListener('click', e => {
+        e.preventDefault();
+        document.querySelector(a.getAttribute('href')).scrollIntoView({behavior:'smooth', block:'start'});
+      });
+    });
+
+    // IntersectionObserver: reveal on scroll
+    const sections = document.querySelectorAll('main, section');
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting){
+          entry.target.classList.add('visible');
+          // mark nav
+          if(entry.target.id){
+            navLinks.forEach(n => n.classList.toggle('active', n.getAttribute('href') === '#'+entry.target.id));
+          }
+        }
+      });
+    }, {threshold:0.18});
+
+    sections.forEach(s => io.observe(s));
+
+    // subtle parallax following mouse / scroll
+    const parallax = document.getElementById('parallax');
+    window.addEventListener('mousemove', (e) => {
+      const x = (e.clientX / window.innerWidth - 0.5) * 30;
+      const y = (e.clientY / window.innerHeight - 0.5) * 30;
+      parallax.style.transform = `translate(${x}px, ${y}px)`;
+    });
+
+    // contact form basic mock (no backend)
+    const form = document.getElementById('contactForm');
+    const msg = document.getElementById('formMsg');
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      msg.style.display = 'block';
+      msg.textContent = 'This is a demo form — configure a backend or use a form service (Formspree, Netlify Forms, etc.) to actually send messages.';
+      setTimeout(()=> msg.style.display='none', 6000);
+      form.reset();
+    });
+
+    // keyboard accessibility: press / to focus (changed to nav)
+    window.addEventListener('keydown', e => {
+      if(e.key === '/') {
+        e.preventDefault();
+        // Focus first nav link instead
+        document.querySelector('.nav-link').focus();
+      }
+    });
+
+    // Small progressive enhancement: check supports smooth scroll
+    (function(){
+      if(!('scrollBehavior' in document.documentElement.style)){
+        // no-op fallback if not supported
+      }
+    })();
+
+    
+    // --- NEW: Music Player Logic ---
+    const musicToggle = document.getElementById('music-toggle');
+    const musicPlayer = document.getElementById('musicPlayer');
+    const audioPlayer = document.getElementById('audio-player');
+    const playlistItems = document.querySelectorAll('#playlist li');
+    const playPauseBtn = document.getElementById('play-pause-btn');
+    const prevBtn = document.getElementById('prev-btn');
+    const nextBtn = document.getElementById('next-btn');
+    const songTitle = document.getElementById('song-title');
+
+    let currentSongIndex = 0;
+    let isPlaying = false;
+
+    // Toggle player visibility
+    musicToggle.addEventListener('click', () => {
+      musicPlayer.classList.toggle('visible');
+    });
+
+    function loadSong(index) {
+      if (index < 0 || index >= playlistItems.length) return;
+      const song = playlistItems[index];
+      const songSrc = song.getAttribute('data-src');
+      
+      if (!songSrc) {
+        console.warn("Song has no data-src:", song.textContent);
+        songTitle.textContent = "Error: No song file found.";
+        return;
+      }
+
+      audioPlayer.src = songSrc;
+      songTitle.textContent = song.textContent;
+      // Update active class
+      playlistItems.forEach(li => li.classList.remove('playing'));
+      song.classList.add('playing');
+      currentSongIndex = index;
+    }
+
+    function playSong() {
+      if (!audioPlayer.src) {
+        loadSong(0); // Load first song if none is loaded
+      }
+      audioPlayer.play().then(() => {
+        playPauseBtn.textContent = '⏸️';
+        isPlaying = true;
+      }).catch(error => {
+        console.error("Audio playback error:", error);
+        songTitle.textContent = "Error playing audio.";
+        isPlaying = false;
+      });
+    }
+
+    function pauseSong() {
+      audioPlayer.pause();
+      playPauseBtn.textContent = '▶️';
+      isPlaying = false;
+    }
+
+    // Controls
+    playPauseBtn.addEventListener('click', () => {
+      isPlaying ? pauseSong() : playSong();
+    });
+
+    nextBtn.addEventListener('click', () => {
+      currentSongIndex = (currentSongIndex + 1) % playlistItems.length;
+      loadSong(currentSongIndex);
+      playSong();
+    });
+
+    prevBtn.addEventListener('click', () => {
+      currentSongIndex = (currentSongIndex - 1 + playlistItems.length) % playlistItems.length;
+      loadSong(currentSongIndex);
+      playSong();
+    });
+
+    // Click on playlist item to play
+    playlistItems.forEach((item, index) => {
+      item.addEventListener('click', () => {
+        loadSong(index);
+        playSong();
       });
     });
 
-    // IntersectionObserver: reveal on scroll
-    const sections = document.querySelectorAll('main, section');
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if(entry.isIntersecting){
-          entry.target.classList.add('visible');
-          // mark nav
-          if(entry.target.id){
-            navLinks.forEach(n => n.classList.toggle('active', n.getAttribute('href') === '#'+entry.target.id));
-          }
-        }
-      });
-    }, {threshold:0.18});
-
-    sections.forEach(s => io.observe(s));
-
-    // subtle parallax following mouse / scroll
-    const parallax = document.getElementById('parallax');
-    window.addEventListener('mousemove', (e) => {
-      const x = (e.clientX / window.innerWidth - 0.5) * 30;
-      const y = (e.clientY / window.innerHeight - 0.5) * 30;
-      parallax.style.transform = `translate(${x}px, ${y}px)`;
+    // Go to next song when current one ends
+    audioPlayer.addEventListener('ended', () => {
+      nextBtn.click();
     });
+    
+    // Load the first song info on page load, but don't play it
+    loadSong(0); 
+    // --- End Music Player Logic ---
 
-    // contact form basic mock (no backend)
-    const form = document.getElementById('contactForm');
-    const msg = document.getElementById('formMsg');
-    form.addEventListener('submit', e => {
-      e.preventDefault();
-      msg.style.display = 'block';
-      msg.textContent = 'This is a demo form — configure a backend or use a form service (Formspree, Netlify Forms, etc.) to actually send messages.';
-      setTimeout(()=> msg.style.display='none', 6000);
-      form.reset();
-    });
-
-    // keyboard accessibility: press / to focus search-like quick nav (optional)
-    window.addEventListener('keydown', e => {
-      if(e.key === '/') {
-        e.preventDefault();
-        document.querySelector('.cta').scrollIntoView({behavior:'smooth'});
-      }
-    });
-
-    // Small progressive enhancement: check supports smooth scroll
-    (function(){
-      if(!('scrollBehavior' in document.documentElement.style)){
-        // no-op fallback if not supported
-      }
-    })();
-  </script>
+  </script>
 </body>
 </html>
