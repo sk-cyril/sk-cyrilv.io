@@ -1,199 +1,333 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My Portfolio</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Cyril V. — Portfolio</title>
+
+  <!-- Google font (optional) -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+
   <style>
-    /* ---------- Global Reset ---------- */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      scroll-behavior: smooth;
-      font-family: "Poppins", sans-serif;
+    :root{
+      --bg:#0b0f13;
+      --card:#0f1720;
+      --muted:#9aa6b2;
+      --accent:#6ee7b7; /* edit accent color */
+      --glass: rgba(255,255,255,0.03);
+      --radius:14px;
+      --maxwidth:1100px;
+      --transition: 350ms cubic-bezier(.2,.9,.3,1);
+      color-scheme: dark;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background:linear-gradient(180deg,#071017 0%, #0b0f13 60%);
+      color:#e6eef3;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.45;
+      padding:0 20px;
     }
 
-    body {
-      background-color: var(--bg);
-      color: var(--text);
-      transition: background-color 0.5s, color 0.5s;
-      --bg: #ffffff;
-      --text: #111111;
+    /* layout */
+    .container{max-width:var(--maxwidth); margin:0 auto; padding:40px 20px;}
+    header{
+      position:sticky; top:16px; z-index:40;
+      display:flex; align-items:center; justify-content:space-between;
+      gap:16px;
+      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      padding:10px 16px; border-radius:12px; backdrop-filter: blur(6px);
+      box-shadow: 0 6px 20px rgba(2,6,10,0.6);
+    }
+    .brand{display:flex; align-items:center; gap:12px;}
+    .logo{
+      width:44px; height:44px; border-radius:10px; display:grid; place-items:center;
+      background:linear-gradient(135deg,var(--accent),#6b9cff); font-weight:800; color:#041018;
+      box-shadow:0 6px 20px rgba(0,0,0,0.6);
+    }
+    nav{display:flex; gap:12px; align-items:center;}
+    nav a{color:var(--muted); text-decoration:none; padding:8px 10px; border-radius:8px; font-weight:600; font-size:14px}
+    nav a.active{background:linear-gradient(90deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01)); color:var(--accent)}
+    .cta{padding:8px 12px; border-radius:10px; background:linear-gradient(90deg,var(--accent),#7bd1ff); color:#041018; font-weight:700; text-decoration:none}
+
+    /* hero */
+    .hero{
+      min-height:78vh; display:grid; align-items:center; padding:48px; gap:18px;
+      grid-template-columns: 1fr 380px;
+      margin-top:18px;
+    }
+    .hero-left{max-width:680px}
+    .eyebrow{color:var(--accent); font-weight:700; letter-spacing:0.08em; margin-bottom:8px}
+    h1{font-size:clamp(30px,5.4vw,52px); margin:0 0 12px;}
+    .lead{color:var(--muted); font-size:18px; margin-bottom:18px}
+    .hero-actions{display:flex; gap:10px; flex-wrap:wrap}
+    .card{
+      background:var(--card); padding:18px; border-radius:var(--radius); box-shadow:0 10px 30px rgba(2,6,10,0.6);
+      border:1px solid rgba(255,255,255,0.03);
     }
 
-    body.dark {
-      --bg: #0d1117;
-      --text: #e6e6e6;
+    /* hero right preview (profile / quick details) */
+    .profile{
+      padding:20px; border-radius:12px; display:flex; gap:12px; align-items:center; background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
     }
+    .avatar{width:86px; height:86px; border-radius:14px; background:linear-gradient(135deg,#3b82f6,#9b8cff); display:grid; place-items:center; font-weight:800; font-size:28px; color:#fff}
+    .meta{font-size:14px; color:var(--muted)}
+    .meta strong{color:#fff; display:block; font-size:16px}
 
-    /* ---------- Toggle Switch ---------- */
-    .toggle-container {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      z-index: 1000;
-    }
+    /* sections */
+    section{padding:90px 0; opacity:0; transform:translateY(18px); transition:var(--transition); will-change:transform, opacity}
+    section.visible{opacity:1; transform:none}
+    .section-inner{max-width:var(--maxwidth); margin:0 auto; padding:0 20px}
+    .split{display:grid; grid-template-columns: 1fr 420px; gap:28px; align-items:start}
+    .panel{background:var(--glass); padding:18px; border-radius:12px; border:1px solid rgba(255,255,255,0.02)}
 
-    .toggle {
-      width: 60px;
-      height: 30px;
-      background-color: #ccc;
-      border-radius: 50px;
-      position: relative;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-      overflow: hidden;
-    }
+    /* small */
+    .muted{color:var(--muted)}
+    ul.meta-list{list-style:none; padding:0; margin:0}
+    ul.meta-list li{padding:8px 0; border-bottom:1px dashed rgba(255,255,255,0.02)}
+    .projects{display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:18px}
+    .project{padding:14px; border-radius:12px; background:linear-gradient(180deg, rgba(255,255,255,0.01), transparent); border:1px solid rgba(255,255,255,0.02)}
+    footer{padding:40px 0; color:var(--muted); text-align:center}
 
-    .toggle.dark {
-      background-color: #444;
+    /* responsive */
+    @media (max-width:980px){
+      .hero{grid-template-columns:1fr; padding:30px}
+      .split{grid-template-columns:1fr}
     }
-
-    .toggle-circle {
-      width: 26px;
-      height: 26px;
-      background-color: #fff;
-      border-radius: 50%;
-      position: absolute;
-      top: 2px;
-      left: 2px;
-      transition: all 0.3s ease;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 14px;
+    /* subtle parallax background effect */
+    .parallax{
+      position:absolute; inset:0; pointer-events:none; z-index:-1; opacity:0.12;
+      background-image: radial-gradient(circle at 10% 10%, #16455e 0%, transparent 12%),
+                        radial-gradient(circle at 90% 80%, #07344a 0%, transparent 12%);
+      transform:translateZ(0);
+      mix-blend-mode:screen;
     }
-
-    .toggle.dark .toggle-circle {
-      transform: translateX(30px);
-      background-color: #000;
-      color: #fff;
-    }
-
-    /* ---------- Sections ---------- */
-    section {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-      padding: 40px;
-      transition: transform 0.6s ease, opacity 0.6s ease;
-    }
-
-    section:nth-child(odd) {
-      background-color: var(--bg);
-    }
-
-    section:nth-child(even) {
-      background-color: rgba(0,0,0,0.05);
-    }
-
-    h1, h2, p {
-      max-width: 700px;
-      text-align: center;
-    }
-
-    h1 {
-      font-size: 3rem;
-      margin-bottom: 10px;
-    }
-
-    h2 {
-      margin-bottom: 10px;
-      font-size: 2rem;
-    }
-
-    p {
-      line-height: 1.6;
-      font-size: 1.1rem;
-    }
-
-    /* ---------- Scroll Animation ---------- */
-    .hidden {
-      opacity: 0;
-      transform: translateY(40px);
-    }
-    .show {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    /* ---------- Smooth Fade Background on Toggle ---------- */
-    html {
-      transition: background-color 0.6s ease;
-    }
+    /* small helpers */
+    .small{font-size:13px; color:var(--muted)}
+    a.no-decor{text-decoration:none; color:inherit}
   </style>
 </head>
 <body>
-  <!-- Toggle Switch -->
-  <div class="toggle-container">
-    <div class="toggle" id="theme-toggle">
-      <div class="toggle-circle">🌙</div>
-    </div>
+  <div class="parallax" id="parallax"></div>
+
+  <div class="container">
+    <header>
+      <div class="brand">
+        <div class="logo">SK</div>
+        <div>
+          <div style="font-weight:700">Your Name</div>
+          <div class="small muted">Frontend · Designer · Developer</div>
+        </div>
+      </div>
+
+      <nav id="nav">
+        <a href="#home" class="nav-link active">Home</a>
+        <a href="#about" class="nav-link">About</a>
+        <a href="#details" class="nav-link">Details</a>
+        <a href="#more" class="nav-link">More</a>
+        <a href="#contact" class="nav-link">Contact</a>
+      </nav>
+
+      <a class="cta" href="#contact">Get in touch</a>
+    </header>
+
+    <!-- HERO / Landing -->
+    <main id="home" class="hero" role="main">
+      <div class="hero-left">
+        <div class="eyebrow">Hi — I'm</div>
+
+        <!-- EDIT: change the name and subtitle below -->
+        <h1><!-- EDIT NAME -->Cyril Vasquez</h1>
+        <p class="lead"><!-- EDIT: short one-line description / elevator pitch -->
+          I'm a web developer focused on crafting clean, accessible interfaces with delightful micro-interactions.
+        </p>
+
+        <div class="hero-actions" style="margin-top:10px">
+          <a class="card no-decor" href="#about">Learn about me</a>
+          <a class="card no-decor" href="#projects">See projects →</a>
+        </div>
+      </div>
+
+      <aside class="card profile" aria-hidden="true">
+        <div class="avatar">SK</div>
+        <div>
+          <div class="meta"><strong><!-- EDIT: short tagline --></strong>
+            <!-- fill this with small details -->
+            <div class="small muted">Location: Your City · Available for freelance</div>
+            <div style="margin-top:8px">
+              <a class="small" href="#" style="color:var(--accent); text-decoration:none;">Resume</a> ·
+              <a class="small" href="#" style="color:var(--accent); text-decoration:none;">LinkedIn</a>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </main>
+
+    <!-- ABOUT -->
+    <section id="about" class="card">
+      <div class="section-inner">
+        <h2>About me</h2>
+        <div class="split" style="margin-top:14px">
+          <div>
+            <p class="muted">
+              <!-- EDIT: Put a longer paragraph describing your background, interests, skills, what you're learning etc. -->
+              I'm a developer who enjoys turning ideas into interactive websites and small apps. I like clean UI, readable code, and constant learning.
+            </p>
+
+            <p style="margin-top:12px">
+              <!-- Add more paragraphs or lists about your strengths, tools you use, languages, or education -->
+              <strong>Skills:</strong> HTML, CSS, JavaScript, React (or your stack), Responsive design, Accessibility.
+            </p>
+          </div>
+
+          <aside class="panel">
+            <h4 class="small">Quick details</h4>
+            <ul class="meta-list" style="margin-top:12px">
+              <li><strong>Location</strong><div class="muted">San Juan City, Metro Manila</div></li>
+              <li><strong>Email</strong><div class="muted">vasquezvincyrile@gmail.com</div></li>
+              <li><strong>Availability</strong><div class="muted">Open to work / Freelance</div></li>
+            </ul>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- DETAILS -->
+    <section id="details">
+      <div class="section-inner">
+        <h2>Details</h2>
+        <p class="muted"><!-- EDIT: add more detailed descriptions — career, education, interesting projects or stories -->
+          Detail 1: A paragraph about something deeper you want visitors to know (technical approach, a big project, your process).
+        </p>
+
+        <div style="height:18px"></div>
+
+        <div class="projects" id="projects">
+          <!-- Repeat project blocks for each project; edit title & description -->
+          <div class="project">
+            <h3 style="margin:0 0 8px">Project One</h3>
+            <p class="muted small" style="margin:0 0 8px">Short description — problem solved, tools used.</p>
+            <a class="small" href="#">View project →</a>
+          </div>
+
+          <div class="project">
+            <h3 style="margin:0 0 8px">Project Two</h3>
+            <p class="muted small" style="margin:0 0 8px">Short description — problem solved, tools used.</p>
+            <a class="small" href="#">View project →</a>
+          </div>
+
+          <div class="project">
+            <h3 style="margin:0 0 8px">Project Three</h3>
+            <p class="muted small" style="margin:0 0 8px">Short description — problem solved, tools used.</p>
+            <a class="small" href="#">View project →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MORE -->
+    <section id="more" class="card">
+      <div class="section-inner">
+        <h2>More descriptions</h2>
+        <p class="muted">
+          <!-- EDIT: Add as many paragraphs or subsections as you want (case studies, processes, blog links etc.) -->
+          Write about your approach, things you are learning now, volunteer work, languages, or hobbies.
+        </p>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact">
+      <div class="section-inner card" style="text-align:left">
+        <h2>Contact</h2>
+        <p class="muted">Want to work together or ask something? Send a quick message.</p>
+
+        <!-- Simple contact form (POST requires backend or form service) -->
+        <form id="contactForm" style="margin-top:14px; display:grid; gap:10px; max-width:520px">
+          <input name="name" placeholder="Your full name" style="padding:12px; border-radius:10px; border:1px solid rgba(255,255,255,0.03); background:transparent; color:inherit" />
+          <input name="email" type="email" placeholder="you@example.com" style="padding:12px; border-radius:10px; border:1px solid rgba(255,255,255,0.03); background:transparent; color:inherit" />
+          <textarea name="message" placeholder="Message..." rows="5" style="padding:12px; border-radius:10px; border:1px solid rgba(255,255,255,0.03); background:transparent; color:inherit"></textarea>
+          <div style="display:flex; gap:8px;">
+            <button type="submit" style="padding:10px 14px; border-radius:10px; border:none; background:linear-gradient(90deg,var(--accent),#7bd1ff); color:#041018; font-weight:700">Send message</button>
+            <div class="small muted" style="align-self:center">Or email: <a href="mailto:you@example.com" class="no-decor" style="color:var(--accent)">you@example.com</a></div>
+          </div>
+          <div id="formMsg" class="small muted" style="display:none"></div>
+        </form>
+
+      </div>
+    </section>
+
+    <footer>
+      <div class="small muted">© <span id="year"></span> Your Name — Built with ❤️</div>
+    </footer>
   </div>
 
-  <!-- Landing Section -->
-  <section class="hidden" id="home">
-    <h1>Hello, I'm <span style="color: #0078ff;">Cyril</span></h1>
-    <p>Welcome to my personal portfolio — scroll down to learn more about me.</p>
-  </section>
-
-  <!-- About Section -->
-  <section class="hidden" id="about">
-    <h2>About Me</h2>
-    <p>
-      I’m a passionate web developer who loves designing clean, functional, and interactive websites.
-      I enjoy exploring modern web technologies and turning creative ideas into code.
-    </p>
-  </section>
-
-  <!-- Details Section -->
-  <section class="hidden" id="details">
-    <h2>Details & Skills</h2>
-    <p>
-      💻 Frontend: HTML, CSS, JavaScript, React  
-      ⚙️ Backend: Node.js, Express  
-      🎨 Design: Figma, TailwindCSS  
-      ☁️ Tools: Git, GitHub, VSCode
-    </p>
-  </section>
-
-  <!-- More Info Section -->
-  <section class="hidden" id="more">
-    <h2>Get In Touch</h2>
-    <p>
-      Want to collaborate or chat?  
-      Feel free to reach out through my socials or email me directly.
-    </p>
-  </section>
-
   <script>
-    // ---------- Theme Toggle ----------
-    const toggle = document.getElementById("theme-toggle");
-    const body = document.body;
-    const circle = document.querySelector(".toggle-circle");
+    // ========== Small helpers to make the UI feel alive ==========
+    document.getElementById('year').textContent = new Date().getFullYear();
 
-    toggle.addEventListener("click", () => {
-      body.classList.toggle("dark");
-      toggle.classList.toggle("dark");
-      circle.textContent = body.classList.contains("dark") ? "☀️" : "🌙";
-    });
-
-    // ---------- Scroll Animation ----------
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("show");
-        } else {
-          entry.target.classList.remove("show");
-        }
+    // Sticky nav link highlighting + smooth scroll
+    const navLinks = document.querySelectorAll('.nav-link');
+    navLinks.forEach(a => {
+      a.addEventListener('click', e => {
+        e.preventDefault();
+        document.querySelector(a.getAttribute('href')).scrollIntoView({behavior:'smooth', block:'start'});
       });
     });
 
-    const hiddenElements = document.querySelectorAll(".hidden");
-    hiddenElements.forEach((el) => observer.observe(el));
+    // IntersectionObserver: reveal on scroll
+    const sections = document.querySelectorAll('main, section');
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting){
+          entry.target.classList.add('visible');
+          // mark nav
+          if(entry.target.id){
+            navLinks.forEach(n => n.classList.toggle('active', n.getAttribute('href') === '#'+entry.target.id));
+          }
+        }
+      });
+    }, {threshold:0.18});
+
+    sections.forEach(s => io.observe(s));
+
+    // subtle parallax following mouse / scroll
+    const parallax = document.getElementById('parallax');
+    window.addEventListener('mousemove', (e) => {
+      const x = (e.clientX / window.innerWidth - 0.5) * 30;
+      const y = (e.clientY / window.innerHeight - 0.5) * 30;
+      parallax.style.transform = `translate(${x}px, ${y}px)`;
+    });
+
+    // contact form basic mock (no backend)
+    const form = document.getElementById('contactForm');
+    const msg = document.getElementById('formMsg');
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      msg.style.display = 'block';
+      msg.textContent = 'This is a demo form — configure a backend or use a form service (Formspree, Netlify Forms, etc.) to actually send messages.';
+      setTimeout(()=> msg.style.display='none', 6000);
+      form.reset();
+    });
+
+    // keyboard accessibility: press / to focus search-like quick nav (optional)
+    window.addEventListener('keydown', e => {
+      if(e.key === '/') {
+        e.preventDefault();
+        document.querySelector('.cta').scrollIntoView({behavior:'smooth'});
+      }
+    });
+
+    // Small progressive enhancement: check supports smooth scroll
+    (function(){
+      if(!('scrollBehavior' in document.documentElement.style)){
+        // no-op fallback if not supported
+      }
+    })();
   </script>
 </body>
 </html>
